@@ -24,4 +24,3 @@ while True:
 
 # Convert to DataFrame
 dataframe1 = pd.DataFrame(all_data)
-display(dataframe1.head())
