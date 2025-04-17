@@ -2,3 +2,4 @@ requests
 pandas
 seaborn as sns
 matplotlib.pyplot as plt
+rapidfuzz
