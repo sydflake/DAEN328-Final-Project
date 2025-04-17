@@ -5,7 +5,7 @@ df = df.dropna(subset=['zip'])
 df.drop_duplicates(inplace=True)
 
 def strip_and_lower(df, column_name):
-  df['coulum_name'].str.lower().str.strip()
+  df[column_name].str.lower().str.strip()
 
 def convert_datetime_column(df, column_name):
     df[column_name] = pd.to_datetime(df[column_name]).dt.date
