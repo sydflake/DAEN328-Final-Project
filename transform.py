@@ -101,3 +101,34 @@ def clean_facility_type(df, column='facility_type'):
     df[column] = df[column].str.lower()
 
     return df
+
+#START OF INPECTION CLEANING
+# Define valid inspection type
+BASE_INSPECTION_TYPES = [
+    'canvass',
+    'consultation',
+    'complaint',
+    'license',
+    'suspect food poisoning',
+    'task-force inspection'
+]
+
+# Generate extended list to include re-inspections
+VALID_INSPECTION_TYPES = BASE_INSPECTION_TYPES + [
+    f"{t} re-inspection" for t in BASE_INSPECTION_TYPES
+]
+
+
+def fuzzy_match_inspection_type(value: str, valid_choices=VALID_INSPECTION_TYPES, threshold: int = 85) -> str:
+    if pd.isna(value):
+        return 'other'
+
+    match, score, _ = process.extractOne(value, valid_choices, scorer=fuzz.token_sort_ratio)
+    return match if score >= threshold else 'other'
+
+
+def clean_inspection_type_column(df: pd.DataFrame, column_name: str = 'inspection_type') -> pd.DataFrame:
+    df['cleaned_inspection_type'] = df[column_name].apply(
+        lambda x: x if x in VALID_INSPECTION_TYPES else fuzzy_match_inspection_type(x)
+    )
+    return df
