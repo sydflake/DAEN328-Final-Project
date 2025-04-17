@@ -16,3 +16,87 @@ def extract_violation_numbers(text):
         return []
     # Find all number-dot patterns like 18., 32., etc.
     return re.findall(r'\b(\d+)\.', text)
+
+def clean_facility_type(df, column='facility_type'):
+    category_map = [
+        ('grocery', 'Grocery'),
+        ('convenien', 'Convenience Store'),
+        ('liquor', 'Liquor'),
+        ('restaurant', 'Restaurant'),
+        ('coffee', 'Coffee Shop'),
+        ('school', 'School'),
+        ('daycare', 'Child Services'),
+        ('children', 'Child Services'),
+        ('hospital', 'Hospital'),
+        ('bakery', 'Bakery'),
+        ('catering', 'Catering'),
+        ('church', 'Church'),
+        ('mobile', 'Mobile Vendor'),
+        ('bar', 'Bar'),
+        ('pantry', 'Food Pantry'),
+        ('deli', 'Deli'),
+        ('juice', 'Juice/Smoothie'),
+        ('herbal', 'Herbal/Nutrition'),
+        ('tea', 'Tea Shop'),
+        ('ice cream', 'Ice Cream'),
+        ('popcorn', 'Snack Shop'),
+        ('cafe', 'Cafe'),
+        ('tavern', 'Bar'),
+        ('college', 'College/University'),
+        ('university', 'College/University'),
+        ('venue', 'Venue'),
+        ('vendor','Vendor'),
+        ('mobil', 'Vendor'),
+        ('event', 'Event Space'),
+        ('banquet', 'Banquet Hall'),
+        ('gas', 'Gas Station'),
+        ('fuel', 'Gas Station'),
+        ('store', 'Store'),
+        ('retail','Retail'),
+        ('theatre', 'Theater'),
+        ('theater', 'Theater'),
+        ('supportive living', 'Assisted Living'),
+        ('senior', 'Assisted Living'),
+        ('nursing home', 'Assisted Living'),
+        ('long-term care facility', 'Assisted Living'),
+        ('day care', 'Child Services'),
+        ('years old', 'Child Services'),
+        ('rstaurant', 'Restaurant'),
+        ('candy', 'Candy'),
+        ('icecream', 'Ice Cream'),
+        ('roof', 'Rooftop'),
+        ('health', 'Health'),
+        ('fitness', 'Fitness'),
+        ('kitchen', 'Kitchen'),
+        ('diner', 'Diner'),
+        ('commisary','Commissary'),
+        ('truck', 'Truck'),
+        ('class', 'Class'),
+        ('golf', 'Golf Course'),
+        ('rehab', 'Rehab Center'),
+        ('care', 'Care Facility'),
+        ('shop', 'Shop'),
+        ('produce', 'Produce'),
+        ('gallery', 'Gallery'),
+        ('child', "Children's Services"),
+        ('1023', "Children's Services"),
+        ('kiosk', 'Kiosk'),
+        ('nutrition', 'Nutrition'),
+        ('distri', 'Distributor'),
+        ('dine', 'Restaurant'),
+        ('shcool', 'School'),
+        ('profit', 'Non-Profit')
+    ]
+
+    # Fill missing with 'Unknown'
+    df[column] = df[column].fillna("Unknown").astype(str)
+
+    # Apply mapping
+    for keyword, new_category in category_map:
+        mask = df[column].str.contains(keyword, case=False, na=False)
+        df.loc[mask, column] = new_category
+
+    # Lowercase the column
+    df[column] = df[column].str.lower()
+
+    return df
