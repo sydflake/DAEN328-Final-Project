@@ -9,3 +9,10 @@ def strip_and_lower(df, column_name):
 def convert_datetime_column(df, column_name):
     df[column_name] = pd.to_datetime(df[column_name]).dt.date
     return df
+  
+### CLEANS VIOLATION ###
+def extract_violation_numbers(text):
+    if pd.isna(text):
+        return []
+    # Find all number-dot patterns like 18., 32., etc.
+    return re.findall(r'\b(\d+)\.', text)
