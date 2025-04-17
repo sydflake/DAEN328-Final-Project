@@ -20,4 +20,4 @@ while True:
     skip += top
 
 # Convert to DataFrame
-dataframe1 = pd.DataFrame(all_data)
+df = pd.DataFrame(all_data)
