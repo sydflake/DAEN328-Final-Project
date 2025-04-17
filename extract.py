@@ -1,3 +1,6 @@
+import requests
+import pandas as pd
+
 url = 'https://data.cityofchicago.org/api/odata/v4/4ijn-s7e5'
 response = requests.get(url)
 
