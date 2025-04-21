@@ -28,6 +28,12 @@ def clean_inspection_type_column(df, column='inspection_type'):
     df['cleaned_inspection_type'] = df[column].apply(lambda x: x if x in VALID_INSPECTION_TYPES else fuzzy_match_inspection_type(x))
     return df
 
+def extract_violation_numbers(text):
+    if pd.isna(text):
+        return []
+    # Find all number-dot patterns like 18., 32., etc.
+    return re.findall(r'\b(\d+)\.', text)
+
 def clean_facility_type(df, column='facility_type'):
     category_map = [
         ('grocery', 'Grocery'), ('convenien', 'Convenience Store'), ('liquor', 'Liquor'),
@@ -62,7 +68,7 @@ def clean_facility_type(df, column='facility_type'):
 def clean_data(df):
     # Drop unnecessary columns
     df = df.drop(columns=[
-        '__id', 'aka_name', 'license_', 'latitude', 'longitude', 'location',
+        '__id', 'dba_name', 'aka_name', 'license_', 'latitude', 'longitude', 'location',
         'location_address', 'location_city', 'location_state', 'location_zip',
         'address'
     ], errors='ignore')
@@ -76,9 +82,10 @@ def clean_data(df):
     df = df.drop_duplicates()
 
     # Clean specific columns
-    strip_and_lower(df, 'dba_name')
+    #strip_and_lower(df, 'dba_name')
     convert_datetime_column(df, 'inspection_date')
     clean_inspection_type_column(df, 'inspection_type')
     clean_facility_type(df, 'facility_type')
+    df['violations'] = df['violations'].apply(extract_violation_numbers)
 
     return df
