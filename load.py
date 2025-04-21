@@ -57,8 +57,13 @@ try:
         print("✅ Table 'inspections' created")
 
         # Insert data using pandas
-        df.to_sql("inspections", engine, if_exists="append", index=False, method='multi')
-        print("🚀 Data loaded into PostgreSQL!")
+    df.to_sql("inspections", engine, if_exists="append", index=False, method='multi', chunksize=10000)
+    
+    #df_small = df.head(50)
+    #df_small.to_sql("inspections", engine, if_exists="replace", index=False, method="multi")
+    conn.commit()
+    print("✅ All rows inserted.")
+    print("🚀 Data loaded into PostgreSQL!")
 
 except Exception as e:
     print("❌ Error connecting to database:", e)
