@@ -1,6 +1,6 @@
 requests
 pandas
 seaborn
-matplotlib.pyplot
+matplotlib
 rapidfuzz
-re
+streamlit
