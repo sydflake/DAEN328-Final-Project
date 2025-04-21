@@ -3,14 +3,19 @@ import streamlit as st
 st.title("Chicago Food Inspections Data Visualization with Streamlit") 
 st.write("Welcome!")
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # loads variables from .env into environment
+
 DB_PARAMS = {
-    #Change accordingly
-    "dbname": "Chicago_food", 
-    "user": "postgres",
-    "password": "password123",
-    "host": "localhost",
-    "port": "5433"
+    "dbname": os.getenv("DB_NAME"),
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
+    "host": os.getenv("DB_HOST"),
+    "port": os.getenv("DB_PORT")
 }
+
 
 # STEP 2 -------------------------------------------------------------------------------------------------
 import pandas as pd
@@ -60,5 +65,6 @@ if not data.empty:
 else:
     st.warning("⚠ No data retrieved. Check your query or database connection.")
 
-# STEP 7 -------------------------------------------------------------------------------------------------
-# 1 -------------------------------------------
+# STEP 4 -------------------------------------------------------------------------------------------------
+# VISUALIZATIONS
+# Pie Plots-------------------------------------------
