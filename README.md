@@ -20,7 +20,7 @@ What Streamlit should look like:
 <img width="1510" alt="Screenshot 2025-05-05 at 3 28 28 PM" src="https://github.com/user-attachments/assets/f03ad93b-7b74-47fc-a0cc-7182f92edd0c" />
 
 
-Sydney Flake - Dockerized, helped clean the data, worked on the presentation, set up the Streamlit, and worked on the read me file.
-Jade Winebright - Cleaned the data, made the presentation, and made the categorial feature dictionaries.
-Vedh Jaishankar - Made all visualizations for Streamlit. 
+Sydney Flake - Dockerized, helped clean the data, worked on the presentation, set up the Streamlit, and worked on the read me file.  
+Jade Winebright - Cleaned the data, made the presentation, and made the categorial feature dictionaries.  
+Vedh Jaishankar - Made all visualizations for Streamlit.  
 Manaswi Luitel - Cleaned the data, worked on the read me file, and made the presentation.
